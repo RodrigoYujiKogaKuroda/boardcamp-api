@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {getCategories, postCategories} from '../controllers/categories.controller.js'
+import { getCategories, postCategories } from '../controllers/categories.controller.js'
 import { categorySchemaValidation } from "../middlewares/categorySchemaValidation.middleware.js";
 
 const router = Router();

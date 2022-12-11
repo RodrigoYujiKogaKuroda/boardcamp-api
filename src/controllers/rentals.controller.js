@@ -1,4 +1,4 @@
-import { connectionDB } from "../database/database.js";
+import { connection } from "../database/database.js";
 
 export async function getRentals (req, res) {
 

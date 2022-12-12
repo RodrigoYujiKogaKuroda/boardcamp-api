@@ -13,7 +13,7 @@ export async function getCategories (req, res) {
 
 export async function postCategories (req, res) {
 
-    const name = res.locals.name;
+    const name = res.locals.category;
 
     try {
         await connection.query(

@@ -4,18 +4,20 @@ export async function categorySchemaValidation(req, res, next) {
 
     const { name } = req.body;
     if (!name) {
-        res.sendStatus(400);
-        return;
+        return res.sendStatus(400);
     }
 
-    const categories = await connection.query("SELECT name FROM categories;");
-    const doesNameExist = categories.rows.find(element => element.name === name);
-    if (doesNameExist) {
-        res.sendStatus(409);
-        return;
+    try {
+        const categories = await connection.query("SELECT name FROM categories;");
+        const doesNameExist = categories.rows.find(element => element.name === name);
+        if (doesNameExist) {
+            return res.sendStatus(409);
+        }
+    } catch (err) {
+        res.status(500).send(err.message);
     }
 
-    res.locals.name = name;
+    res.locals.category = name;
 
     next();
 

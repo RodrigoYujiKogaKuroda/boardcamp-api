@@ -1,4 +1,3 @@
-import { categorySchema } from "../models/category.model.js";
 import { connection } from "../database/database.js";
 
 export async function categorySchemaValidation(req, res, next) {

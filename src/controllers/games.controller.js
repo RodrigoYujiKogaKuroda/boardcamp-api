@@ -15,7 +15,7 @@ export async function getGames (req, res) {
                 JOIN 
                     categories
                 ON
-                    games."categoryId" = categories.id
+                    games."categoryId" = categories.id;
             `);
             res.send(games.rows);
         }

@@ -2,9 +2,21 @@ import { connection } from "../database/database.js";
 
 export async function getCustomers (req, res) {
 
+    const queryCpf = req.query.cpf;
+
     try {
-        const customers = await connection.query("SELECT * FROM customers;");
-        res.send(customers.rows);
+        if (queryCpf) {
+            const customers = await connection.query(`
+                SELECT * FROM customers
+                WHERE customers.cpf
+                    ILIKE $1;`,
+                [`${queryCpf}%`]
+                );
+            res.send(customers.rows);
+        } else {
+            const customers = await connection.query("SELECT * FROM customers;");
+            res.send(customers.rows);
+        }
     } catch (err) {
         res.status(500).send(err.message);
     }

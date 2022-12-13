@@ -3,6 +3,22 @@ import { connection } from "../database/database.js";
 export async function getRentals (req, res) {
 
     try {
+        const rentals = await connection.query(`
+            SELECT json_agg(row_to_json(tu))
+                FROM (
+                    SELECT rentals.*, (
+                        SELECT row_to_json(customers)
+                        FROM customers
+                        WHERE rentals."customerId" = customers.id
+                    ) customer, (
+                        SELECT row_to_json(games)
+                        FROM games
+                        WHERE rentals."gameId" = games.id
+                    ) game
+                FROM rentals
+            ) tu;
+        `);
+        res.send(rentals.rows);
     } catch (err) {
         res.status(500).send(err.message);
     }

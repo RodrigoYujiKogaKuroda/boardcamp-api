@@ -10,7 +10,7 @@ export async function rentalSchemaValidation(req, res, next) {
     } = req.body;
 
     const date = new Date();
-    date.setDate(date.getDate() + 30);
+    date.setDate(date.getDate());
 
     const games = await connection.query("SELECT * FROM games WHERE id=$1;", [gameId]);
     if (!games.rows[0]) {

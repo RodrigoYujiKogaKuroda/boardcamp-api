@@ -26,7 +26,7 @@ export async function customerSchemaValidation(req, res, next) {
     try {
         const customers = await connection.query("SELECT cpf FROM customers;");
         const doesCpfExist = customers.rows.find(element => element.cpf === cpf);
-        if (!doesCpfExist) {
+        if (doesCpfExist) {
             return res.sendStatus(409);
         }
     } catch (err) {
